@@ -2,7 +2,7 @@ const http = require('http');
 const db = require('./db.js');
 const axios = require('axios');
 
-const PORT = process.env.PORT || 3000;
+const PORT = 3000;
 var dataurl = 'https://jsonplaceholder.typicode.com/photos';
 
 const server = http.createServer(async (req, res) => {
@@ -65,7 +65,7 @@ server.listen(PORT, () => {
     console.log('db setup fails');
     return;
   }
-  //first time call on start
+  //first call on start
   fetchDataUrl();
   //call every 1 minutes.
   setInterval(fetchDataUrl, 60000);
