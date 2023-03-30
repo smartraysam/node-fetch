@@ -7,16 +7,28 @@ var dataurl = 'https://jsonplaceholder.typicode.com/photos';
 
 const server = http.createServer(async (req, res) => {
   //set the request route
-  if (req.url.startsWith('/api/getdata') && req.method === 'GET') {
-    const response = await db.fetchData(req);
-    res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify(response));
-  } else {
-    res.writeHead(404, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify({ message: 'Server is running, route not found' }));
+  if (req.method === 'GET') {
+    if (req.url.startsWith('/api/album')) {
+      const response = await db.fetchData(req);
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify(response));
+    } else {
+      res.writeHead(404, { 'Content-Type': 'application/json' });
+      res.end(
+        JSON.stringify({ message: 'Server is running, GET route not found' })
+      );
+    }
+  }else if (req.method === 'POST') {
+    
+  }else {
+    res.writeHead(405, { 'Content-Type': 'application/json' });
+    res.end(
+      JSON.stringify({ message: 'Server is running, Method not allowed' })
+    ); 
   }
 });
 
+// function to fetch data from remote url
 const fetchDataUrl = () => {
   axios
     .get(dataurl)
@@ -39,6 +51,7 @@ const fetchDataUrl = () => {
     });
 };
 
+//function to setup db
 const setupDB = async (dbname) => {
   const result = await db.createDB(dbname);
   return result;
