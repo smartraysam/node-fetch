@@ -6,7 +6,7 @@ data to mongodb  every 1 minute
 http://localhost/api/album fetch a  paginated data from the db 
 
 
-**setup**
+## Setup
 Setup mongodb on local machine running at `mongodb://localhost:27017`
 
 clone project
